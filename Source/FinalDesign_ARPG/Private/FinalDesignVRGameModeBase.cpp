@@ -1,6 +1,8 @@
 #include "FinalDesignVRGameModeBase.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "SenceManager.h"
+#include "Engine/GameEngine.h"
 
 void AFinalDesignVRGameModeBase::SwitchLevel(const FName& LevelName)
 {
@@ -39,6 +41,17 @@ FName AFinalDesignVRGameModeBase::GetLevelName(int Index)
 	if (vLevelNames.Num() > Index)
 		return vLevelNames[Index];
 	return "";
+}
+
+void AFinalDesignVRGameModeBase::SetSenceManager(ASenceManager* SManager)
+{
+	mSenceManager = SManager;
+	if (SManager)
+	{
+		SManager->CreatePlayerCharacterCallback += [this](const PlayerCharacterInitInfo& InitInfo) {
+			GEngine->AddOnScreenDebugMessage(1, 10, FColor::Yellow, "call");
+		};
+	}
 }
 
 void AFinalDesignVRGameModeBase::StartPlay()

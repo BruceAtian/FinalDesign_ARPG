@@ -2,12 +2,12 @@
 
 #include "CoreMinimal.h"
 #include "SenceManager.h"
-#include "MainMenuSenceManager.generated.h"
+#include "MainLevel_1_SenceManager.generated.h"
 
 
 
 UCLASS()
-class AMainMenuSenceManager : public ASenceManager
+class AMainLevel_1_SenceManager : public ASenceManager
 {
 	GENERATED_BODY()
 

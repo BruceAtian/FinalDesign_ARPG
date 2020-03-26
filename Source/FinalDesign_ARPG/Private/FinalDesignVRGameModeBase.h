@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Engine/LevelStreaming.h"
+#include "core/event.h"
 #include "FinalDesignVRGameModeBase.generated.h"
 
 class ASenceManager;
@@ -20,10 +21,7 @@ public:
 	FName GetLevelName(int Index);
 
 	//SenceManager
-	void SetSenceManager(ASenceManager* SManager)
-	{
-		mSenceManager = SManager;
-	};
+	void SetSenceManager(ASenceManager* SManager);
 
 	ASenceManager* GetSenceManager()
 	{ return mSenceManager; };
@@ -37,6 +35,7 @@ protected:
 	void OnCurStreamLevelUnloaded();
 private:
 
+	//player
 	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
