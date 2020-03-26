@@ -32,10 +32,11 @@ public:
 protected:
 	virtual void StartPlay() override;
 
-
-private:
 	//Level
+	UFUNCTION(BlueprintCallable)
 	void OnCurStreamLevelUnloaded();
+private:
+
 	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

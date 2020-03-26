@@ -7,14 +7,16 @@ void AFinalDesignVRGameModeBase::SwitchLevel(const FName& LevelName)
 	mStreamLevelNameWaitToLoad = LevelName;
 	if (!bIsCurStreamLevelUnload)
 	{
-		bIsCurStreamLevelUnload = true;
-		ULevelStreaming* CurLevel = GetCurLevel();
-		CurLevel->OnLevelLoaded.AddUniqueDynamic(this, &AFinalDesignVRGameModeBase::OnCurStreamLevelUnloaded);
-		FLatentActionInfo LInfo;
-		FGuid uid = FGuid::NewGuid();
-		LInfo.UUID = uid.D;
-		UGameplayStatics::UnloadStreamLevel(this, mCurStreamLevel, LInfo, true);
-		return;
+		if (ULevelStreaming* CurLevel = GetCurLevel())
+		{
+			bIsCurStreamLevelUnload = true;
+			CurLevel->OnLevelUnloaded.AddUniqueDynamic(this, &AFinalDesignVRGameModeBase::OnCurStreamLevelUnloaded);
+			FLatentActionInfo LInfo;
+			FGuid uid = FGuid::NewGuid();
+			LInfo.UUID = uid.D;
+			UGameplayStatics::UnloadStreamLevel(this, mCurStreamLevel, LInfo, true);
+			return;
+		}	
 	}
 	OnCurStreamLevelUnloaded();
 }
@@ -41,9 +43,8 @@ FName AFinalDesignVRGameModeBase::GetLevelName(int Index)
 
 void AFinalDesignVRGameModeBase::StartPlay()
 {
-	if (vLevelNames.Num() > 0)
-		mCurStreamLevel = vLevelNames[0];
-
+	SwitchLevel("Menu");
+	AGameModeBase::StartPlay();
 }
 
 void AFinalDesignVRGameModeBase::OnCurStreamLevelUnloaded()
