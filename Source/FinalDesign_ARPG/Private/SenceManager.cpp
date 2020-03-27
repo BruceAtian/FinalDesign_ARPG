@@ -1,6 +1,6 @@
 #include "SenceManager.h"
 #include "Engine/World.h"
-
+#include "Kismet/GameplayStatics.h"
 
 void ASenceManager::BeginPlay()
 {
@@ -13,7 +13,13 @@ void ASenceManager::BeginPlay()
 	if (bNeedCreatePlayerCharacter)
 	{
 		PlayerCharacterInitInfo InitInfo;
+		InitInfo.Trans = mPlayerInitTrans;
 		CreatePlayerCharacterCallback(InitInfo);
+	}
+
+	if (EnemyProductorClass != nullptr)
+	{
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), EnemyProductorClass, EnemyProducts);
 	}
 
 	ResetPlayerStatus();

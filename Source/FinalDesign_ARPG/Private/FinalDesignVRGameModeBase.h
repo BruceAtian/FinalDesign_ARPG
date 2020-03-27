@@ -4,9 +4,11 @@
 #include "GameFramework/GameModeBase.h"
 #include "Engine/LevelStreaming.h"
 #include "core/event.h"
+#include "GameDefine.h"
 #include "FinalDesignVRGameModeBase.generated.h"
 
 class ASenceManager;
+class AVRGameCharacter;
 
 UCLASS()
 class AFinalDesignVRGameModeBase : public AGameModeBase
@@ -22,9 +24,11 @@ public:
 
 	//SenceManager
 	void SetSenceManager(ASenceManager* SManager);
-
 	ASenceManager* GetSenceManager()
 	{ return mSenceManager; };
+
+	//Player
+	AVRGameCharacter* GetGamePlayer() const { return mPlayCharacter;};
 
 
 protected:
@@ -36,14 +40,19 @@ protected:
 private:
 
 	//player
-	
+	void CreateDefaultPlayerCharacter(const PlayerCharacterInitInfo& TransInfo);
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FName> vLevelNames;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<AVRGameCharacter> PlayerCharacterClass;
+
 private:
-	ASenceManager* mSenceManager = nullptr;
-	bool bIsCurStreamLevelUnload = false;
-	FName mStreamLevelNameWaitToLoad = "";
-	FName mCurStreamLevel = "";
+	ASenceManager* mSenceManager		= nullptr;
+	bool bIsCurStreamLevelUnload		= false;
+	FName mStreamLevelNameWaitToLoad	= "";
+	FName mCurStreamLevel				= "";
+	AVRGameCharacter* mPlayCharacter	= nullptr;
 };

@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "SenceManager.h"
 #include "Engine/GameEngine.h"
+#include "Player/VRGameCharacter.h"
 
 void AFinalDesignVRGameModeBase::SwitchLevel(const FName& LevelName)
 {
@@ -49,7 +50,7 @@ void AFinalDesignVRGameModeBase::SetSenceManager(ASenceManager* SManager)
 	if (SManager)
 	{
 		SManager->CreatePlayerCharacterCallback += [this](const PlayerCharacterInitInfo& InitInfo) {
-			GEngine->AddOnScreenDebugMessage(1, 10, FColor::Yellow, "call");
+			CreateDefaultPlayerCharacter(InitInfo);
 		};
 	}
 }
@@ -69,4 +70,15 @@ void AFinalDesignVRGameModeBase::OnCurStreamLevelUnloaded()
 	mCurStreamLevel = mStreamLevelNameWaitToLoad;
 	mStreamLevelNameWaitToLoad = "";
 	bIsCurStreamLevelUnload = false;
+}
+
+void AFinalDesignVRGameModeBase::CreateDefaultPlayerCharacter(const PlayerCharacterInitInfo& TransInfo)
+{
+	if (mPlayCharacter == nullptr || mPlayCharacter->IsValidLowLevel())
+	{
+		this->DefaultPawnClass = PlayerCharacterClass;
+		auto* DefaultPawn = this->SpawnDefaultPawnAtTransform(GetWorld()->GetFirstPlayerController(), TransInfo.Trans);
+		mPlayCharacter = Cast<AVRGameCharacter>(DefaultPawn);
+		GetWorld()->GetFirstPlayerController()->Possess(mPlayCharacter);
+	}
 }

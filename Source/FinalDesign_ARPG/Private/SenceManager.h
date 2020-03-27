@@ -3,14 +3,11 @@
 #include "CoreMinimal.h"
 #include "FinalDesignVRGameModeBase.h"
 #include "core/event.h"
+#include "GameDefine.h"
 #include "SenceManager.generated.h"
 
 
-struct PlayerCharacterInitInfo
-{
-	FTransform Trans;
-};
-
+class AEnemyProductor;
 
 UCLASS()
 class ASenceManager : public AActor
@@ -31,4 +28,12 @@ protected:
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	bool bNeedCreatePlayerCharacter = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FTransform mPlayerInitTrans;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf <AActor> EnemyProductorClass;
+
+	TArray<AActor*> EnemyProducts;
 };
