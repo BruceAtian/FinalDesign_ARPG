@@ -1,6 +1,7 @@
 #include "SenceManager.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "ResourceManager/ResourceManager.h"
 
 void ASenceManager::BeginPlay()
 {
@@ -20,6 +21,12 @@ void ASenceManager::BeginPlay()
 	if (EnemyProductorClass != nullptr)
 	{
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), EnemyProductorClass, EnemyProducts);
+	}
+
+	if (mResourceManager == nullptr)
+	{
+		mResourceManager = Cast<AResourceManager>
+			(UGameplayStatics::GetActorOfClass(GetWorld(), ResourceManagerClass));
 	}
 
 	ResetPlayerStatus();

@@ -8,6 +8,7 @@
 
 
 class AEnemyProductor;
+class AResourceManager;
 
 UCLASS()
 class ASenceManager : public AActor
@@ -34,6 +35,11 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf <AActor> EnemyProductorClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<AResourceManager> ResourceManagerClass;
+
+	AResourceManager* mResourceManager = nullptr;
 
 	TArray<AActor*> EnemyProducts;
 };
