@@ -2,7 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameDefine.h"
 #include "VRGameCharacter.generated.h"
+
+class UAudioController;
+class UVRGameCharacterAnimInstance;
 
 UCLASS()
 class AVRGameCharacter : public ACharacter
@@ -20,4 +24,8 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+protected:
+	UAudioController* mCharacterAudioController = nullptr;
+
+	UVRGameCharacterAnimInstance* mCharacterAnimIns = nullptr;
 };
