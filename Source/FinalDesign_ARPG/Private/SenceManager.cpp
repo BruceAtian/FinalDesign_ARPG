@@ -2,6 +2,7 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "ResourceManager/ResourceManager.h"
+#include "Player/VRGameCharacter.h"
 
 void ASenceManager::BeginPlay()
 {
@@ -16,6 +17,13 @@ void ASenceManager::BeginPlay()
 		PlayerCharacterInitInfo InitInfo;
 		InitInfo.Trans = mPlayerInitTrans;
 		CreatePlayerCharacterCallback(InitInfo);
+	}
+	else
+	{
+		if (auto* Player = GetGameMode()->GetGamePlayer())
+		{
+			Player->SetActorTransform(mPlayerInitTrans);
+		}
 	}
 
 	if (EnemyProductorClass != nullptr)
@@ -45,4 +53,9 @@ AFinalDesignVRGameModeBase* ASenceManager::GetGameMode()
 			return GameModeBase;
 	}
 	return nullptr;
+}
+
+void ASenceManager::SwitchLevelByIndex(int Index)
+{
+	GetGameMode()->SwitchLevel(GetGameMode()->GetLevelName(Index));
 }

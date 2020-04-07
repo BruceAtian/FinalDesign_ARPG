@@ -26,6 +26,9 @@ protected:
 	virtual void ResetPlayerStatus() {};
 	AFinalDesignVRGameModeBase* GetGameMode();
 
+	UFUNCTION(BlueprintCallable)
+	void SwitchLevelByIndex(int Index);
+
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	bool bNeedCreatePlayerCharacter = false;
