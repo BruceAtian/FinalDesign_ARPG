@@ -44,6 +44,19 @@ FName AFinalDesignVRGameModeBase::GetLevelName(int Index)
 	return "";
 }
 
+bool AFinalDesignVRGameModeBase::SwitchNextLevel()
+{
+	for (int i = 0; i < vLevelNames.Num(); ++i)
+	{
+		if (mCurStreamLevel == vLevelNames[i] && i + 1 < vLevelNames.Num())
+		{
+			SwitchLevel(vLevelNames[i + 1]);
+			return true;
+		}
+	}
+	return false;
+}
+
 void AFinalDesignVRGameModeBase::SetSenceManager(ASenceManager* SManager)
 {
 	mSenceManager = SManager;

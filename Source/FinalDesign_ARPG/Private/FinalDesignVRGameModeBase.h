@@ -9,6 +9,7 @@
 
 class ASenceManager;
 class AVRGameCharacter;
+class UGameSettingMenuWidget;
 
 UCLASS()
 class AFinalDesignVRGameModeBase : public AGameModeBase
@@ -21,6 +22,7 @@ public:
 	void SwitchLevel(const FName& LevelName);
 	ULevelStreaming* GetCurLevel() const;
 	FName GetLevelName(int Index);
+	bool SwitchNextLevel();
 
 	//SenceManager
 	void SetSenceManager(ASenceManager* SManager);
@@ -49,10 +51,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<AVRGameCharacter> PlayerCharacterClass;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UGameSettingMenuWidget> SettingMenuClass;
+
 private:
 	ASenceManager* mSenceManager		= nullptr;
 	bool bIsCurStreamLevelUnload		= false;
 	FName mStreamLevelNameWaitToLoad	= "";
 	FName mCurStreamLevel				= "";
 	AVRGameCharacter* mPlayCharacter	= nullptr;
+	UGameSettingMenuWidget* mGameSettingMenu = nullptr;
 };

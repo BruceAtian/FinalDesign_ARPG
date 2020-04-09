@@ -18,6 +18,7 @@ class ASenceManager : public AActor
 public:
 	core::event<void(const PlayerCharacterInitInfo&)> CreatePlayerCharacterCallback;
 
+	void GotoNextLevel();
 protected:
 	void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;

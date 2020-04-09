@@ -4,6 +4,11 @@
 #include "ResourceManager/ResourceManager.h"
 #include "Player/VRGameCharacter.h"
 
+void ASenceManager::GotoNextLevel()
+{
+	GetGameMode()->SwitchNextLevel();
+}
+
 void ASenceManager::BeginPlay()
 {
 	Super::BeginPlay();
